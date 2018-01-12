@@ -37,7 +37,14 @@ angular.module('cardApp', [])
 			vm.selectedAdventurer.drawnAbilityCards = vm.selectedAdventurer.drawnAbilityCards.filter(function (item) {
 				return item.name !== abilityCard.name;
 			});
-			vm.drawCards();
+			// return other 2 cards to the draw pile.
+			for (var i = 0; i < vm.selectedAdventurer.drawnAbilityCards.length; i++) {
+				vm.selectedAdventurer.abilityCards.push(vm.selectedAdventurer.drawnAbilityCards[i]);
+			}
+			vm.selectedAdventurer.drawnAbilityCards = [];
+			
+			// after this user will need to draw new cards for their next turn. Do this auto, or make them click?
+			// vm.drawCards();
 		}
 		
 		vm.selectAdventurer = function(adventurer) {
