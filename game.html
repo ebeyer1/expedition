@@ -50,84 +50,142 @@
 			</div>
 		</section>
 		<div ng-if="gameCtrl.selectedAdventurer">
-		<h4>Selected Adventurer: {{ gameCtrl.selectedAdventurer.name }}</h4>
-		<div style="position: absolute;top: 10px;right: 5px;">
-			<div>Health: {{ gameCtrl.selectedAdventurer.health }}</div>
-			<div>
-				<button ng-click="gameCtrl.addHealth(-1)"><i class="fas fa-minus"></i></button>
-				<button ng-click="gameCtrl.addHealth(1)"><i class="fas fa-plus"></i></button>
+			<h4>Selected Adventurer: {{ gameCtrl.selectedAdventurer.name }}</h4>
+			<div style="position: absolute;top: 10px;right: 5px;">
+				<div>Health: {{ gameCtrl.selectedAdventurer.health }}</div>
+				<div>
+					<button ng-click="gameCtrl.addHealth(-1)"><i class="fas fa-minus"></i></button>
+					<button ng-click="gameCtrl.addHealth(1)"><i class="fas fa-plus"></i></button>
+				</div>
 			</div>
-		</div>
-		<h5>Cards
-			<i><small>(
-				<span ng-if="gameCtrl.selectedAdventurer.melee">{{ gameCtrl.selectedAdventurer.melee }} melee;</span>
-				<span ng-if="gameCtrl.selectedAdventurer.music">{{ gameCtrl.selectedAdventurer.music }} music;</span>
-				<span ng-if="gameCtrl.selectedAdventurer.ranged">{{ gameCtrl.selectedAdventurer.ranged }} ranged;</span>
-				<span ng-if="gameCtrl.selectedAdventurer.magic">{{ gameCtrl.selectedAdventurer.magic }} magic;</span>
-			)</small></i>
-		</h5>
-		<div class="row" ng-hide="gameCtrl.hideCards" ng-cloak>
-			<p><i class="fas fa-info-circle"></i> View the cards below and click shuffle when ready to begin</p>
-			<button class="btn waves-effect waves-light" name="action" ng-click="gameCtrl.shuffle()">Shuffle
-				<i class="fas fa-random"></i>
-			</button>
-			<br />
-			<div class="col s6 m3" ng-repeat="ability in gameCtrl.selectedAdventurer.abilityCards">
-				<div class="card medium">
-					<div class="card-content center" style="position: relative; min-height: 85%;">
-						<span class="card-title">{{ ability.name }}</span>
-						<small style="position: absolute; top: 5px; right: 5px;">{{ ability.class }}</small>
-						<small style="position: absolute; top: 5px; left: 5px;">{{ ability.typeicon }}</small>
-						<div><strong><i class="far fa-gem"></i> >= {{ ability.risk }}</strong></div>
-						<div><strong><i class="fas fa-crosshairs"></i> {{ ability.target }}</strong></div>
-						<br />
-						<div><strong>SUCCESS:</strong> {{ ability.hit }}</div>
-						<br />
-						<div><strong><i class="far fa-gem"></i> >= 20:</strong> {{ ability.crithit }}</div>
-						<div><strong><i class="far fa-gem"></i> <= 1:</strong> {{ ability.critmiss }}</div>
-						<br />
-						<small class="center" style="position: absolute; bottom: 0; left: 0; right: 0;"><i>{{ ability.flavortext }}</i></small>
-					</div>
-					<div class="card-action">
-						<a href="#">Use Card</a>
+			<h5>Cards
+				<i><small>(
+					<span ng-if="gameCtrl.selectedAdventurer.melee">{{ gameCtrl.selectedAdventurer.melee }} melee;</span>
+					<span ng-if="gameCtrl.selectedAdventurer.music">{{ gameCtrl.selectedAdventurer.music }} music;</span>
+					<span ng-if="gameCtrl.selectedAdventurer.ranged">{{ gameCtrl.selectedAdventurer.ranged }} ranged;</span>
+					<span ng-if="gameCtrl.selectedAdventurer.magic">{{ gameCtrl.selectedAdventurer.magic }} magic;</span>
+				)</small></i>
+			</h5>
+			<div class="row" ng-hide="gameCtrl.hideCards" ng-cloak>
+				<p><i class="fas fa-info-circle"></i> View the cards below and click shuffle when ready to begin</p>
+				<button class="btn waves-effect waves-light" name="action" ng-click="gameCtrl.shuffle()">Shuffle
+					<i class="fas fa-random"></i>
+				</button>
+				<br />
+				<div class="col s6 m3" ng-repeat="ability in gameCtrl.selectedAdventurer.abilityCards">
+					<div class="card medium">
+						<div class="card-content center" style="position: relative; min-height: 85%;">
+							<span class="card-title">{{ ability.name }}</span>
+							<small style="position: absolute; top: 5px; right: 5px;">{{ ability.class }}</small>
+							<small style="position: absolute; top: 5px; left: 5px;">{{ ability.typeicon }}</small>
+							<div><strong><i class="far fa-gem"></i> >= {{ ability.risk }}</strong></div>
+							<div><strong><i class="fas fa-crosshairs"></i> {{ ability.target }}</strong></div>
+							<br />
+							<div><strong>SUCCESS:</strong> {{ ability.hit }}</div>
+							<br />
+							<div><strong><i class="far fa-gem"></i> >= 20:</strong> {{ ability.crithit }}</div>
+							<div><strong><i class="far fa-gem"></i> <= 1:</strong> {{ ability.critmiss }}</div>
+							<br />
+							<small class="center" style="position: absolute; bottom: 0; left: 0; right: 0;"><i>{{ ability.flavortext }}</i></small>
+						</div>
+						<div class="card-action">
+							<a href="#">Use Card</a>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="row" ng-if="gameCtrl.hideCards">
-			<button class="btn waves-effect waves-light" name="action" ng-click="gameCtrl.drawCards()">Draw
-				<i class="fas fa-angle-up"></i>
-			</button>
-			<br />
-			<div class="col s6 m3" ng-repeat="ability in gameCtrl.selectedAdventurer.drawnAbilityCards">
-				<div class="card medium" ng-class="{'selected': ability.selected}">
-					<div class="card-content center" style="position: relative; min-height: 85%;">
-						<span class="card-title">{{ ability.name }}</span>
-						<small style="position: absolute; top: 5px; right: 5px;">{{ ability.class }}</small>
-						<small style="position: absolute; top: 5px; left: 5px;">{{ ability.typeicon }}</small>
-						<div><strong><i class="far fa-gem"></i> >= {{ ability.risk }}</strong></div>
-						<div><strong><i class="fas fa-crosshairs"></i> {{ ability.target }}</strong></div>
-						<br />
-						<div><strong>SUCCESS:</strong> {{ ability.hit }}</div>
-						<br />
-						<div><strong><i class="far fa-gem"></i> >= 20:</strong> {{ ability.crithit }}</div>
-						<div><strong><i class="far fa-gem"></i> <= 1:</strong> {{ ability.critmiss }}</div>
-						<br />
-						<small class="center" style="position: absolute; bottom: 0; left: 0; right: 0;"><i>{{ ability.flavortext }}</i></small>
-					</div>
-					<div class="card-action">
-						<a href="#" ng-click="gameCtrl.selectCard(ability)" ng-hide="ability.selected">Use Card</a>
-						<a href="#" ng-click="gameCtrl.playCard(ability)" ng-if="ability.selected">Discard Card</a>
+			<div class="row" ng-if="gameCtrl.hideCards">
+				<button class="btn waves-effect waves-light" name="action" ng-click="gameCtrl.drawCards()">Draw
+					<i class="fas fa-angle-up"></i>
+				</button>
+				<br />
+				<div class="col s6 m3" ng-repeat="ability in gameCtrl.selectedAdventurer.drawnAbilityCards">
+					<div class="card medium" ng-class="{'selected': ability.selected}">
+						<div class="card-content center" style="position: relative; min-height: 85%;">
+							<span class="card-title">{{ ability.name }}</span>
+							<small style="position: absolute; top: 5px; right: 5px;">{{ ability.class }}</small>
+							<small style="position: absolute; top: 5px; left: 5px;">{{ ability.typeicon }}</small>
+							<div><strong><i class="far fa-gem"></i> >= {{ ability.risk }}</strong></div>
+							<div><strong><i class="fas fa-crosshairs"></i> {{ ability.target }}</strong></div>
+							<br />
+							<div><strong>SUCCESS:</strong> {{ ability.hit }}</div>
+							<br />
+							<div><strong><i class="far fa-gem"></i> >= 20:</strong> {{ ability.crithit }}</div>
+							<div><strong><i class="far fa-gem"></i> <= 1:</strong> {{ ability.critmiss }}</div>
+							<br />
+							<small class="center" style="position: absolute; bottom: 0; left: 0; right: 0;"><i>{{ ability.flavortext }}</i></small>
+						</div>
+						<div class="card-action">
+							<a href="#" ng-click="gameCtrl.selectCard(ability)" ng-hide="ability.selected">Use Card</a>
+							<a href="#" ng-click="gameCtrl.playCard(ability)" ng-if="ability.selected">Discard Card</a>
+						</div>
 					</div>
 				</div>
+				<br />
+				<div class="clearfix">
+					<button class="btn waves-effect waves-light" name="action" ng-click="gameCtrl.clearCards()" ng-if="gameCtrl.selectedAdventurer.drawnAbilityCards.length > 0">Discard All
+						<i class="fas fa-angle-down"></i>
+					</button>
+				</div>
 			</div>
-			<br />
+			<button class="btn waves-effect waves-light" name="action" ng-click="gameCtrl.chooseEncounters(true)">Choose Encounters
+				<i class="fas fa-arrow-right"></i>
+			</button>
+		</div>
+		<div ng-if="gameCtrl.choosingEncounters">
 			<div class="clearfix">
-				<button class="btn waves-effect waves-light" name="action" ng-click="gameCtrl.clearCards()" ng-if="gameCtrl.selectedAdventurer.drawnAbilityCards.length > 0">Discard All
-					<i class="fas fa-angle-down"></i>
+				<input class="col s12 m6" type="text" ng-model="gameCtrl.encounterFilter" placeholder="Search for encounter" />
+				<button class="btn waves-effect waves-light" name="action" ng-click="gameCtrl.chooseEncounters(false)">Done Selecting
+					<i class="fas fa-arrow-down"></i>
 				</button>
 			</div>
+			<div>
+				<strong>Selected Encounters:</strong> <em ng-repeat="crnt in gameCtrl.currentEncounters">{{ crnt.name }} ({{ crnt.tier }}); </em>
+			</div>
+			<div class="row">
+				<div class="col s6 m3" ng-repeat="encounter in gameCtrl.encounters | filter: gameCtrl.encounterFilter">
+					<div class="card medium blue-grey darken-4">
+						<div class="card-content white-text center" style="position: relative; min-height: 85%;">
+							<small style="position: absolute; top: 5px; right: 5px;"><i class="far fa-heart"></i> {{ encounter.health }}</small>
+							<span class="card-title">{{ encounter.name }}</span>
+							<div>Tier {{ encounter.tier }} <strong>{{ encounter.class }}</strong></div>
+							<div>{{ encounter.ongoing1 }}</div>
+							<div>{{ encounter.ongoing2 }}</div>
+							<div><strong>SURGE:</strong> {{ encounter.surge }}</div>
+							<br />
+							<small class="center" style="position: absolute; bottom: 0; left: 0; right: 0;"><i>{{ encounter.flavortext }}</i></small>
+						</div>
+						<div class="card-action">
+							<a href="#" ng-click="gameCtrl.selectEncounter(encounter)">Select Card</a>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
+		<div ng-if="!gameCtrl.choosingEncounters && gameCtrl.currentEncounters.length > 0">
+			<h4>Current Encounters</h4>
+			<div class="row">
+				<div class="col s6 m3" ng-repeat="encounter in gameCtrl.currentEncounters | filter: gameCtrl.encounterFilter">
+					<div class="card medium blue-grey darken-4">
+						<div class="card-content white-text center" style="position: relative; min-height: 85%;">
+							<div style="position: absolute; top: 10px; right: 5px;">
+								<small><i class="far fa-heart"></i> {{ encounter.currentHealth }} / {{ encounter.health }}</small>
+								<div>
+									<button ng-click="gameCtrl.updateHealth(encounter,-1)" class="red lighten-1"><i class="fas fa-minus"></i></button>
+									<button ng-click="gameCtrl.updateHealth(encounter,1)" class="blue lighten-1"><i class="fas fa-plus"></i></button>
+								</div>
+							</div>
+							<span class="card-title">{{ encounter.name }}</span>
+							<div>Tier {{ encounter.tier }} <strong>{{ encounter.class }}</strong></div>
+							<div>{{ encounter.ongoing1 }}</div>
+							<div>{{ encounter.ongoing2 }}</div>
+							<div><strong>SURGE:</strong> {{ encounter.surge }}</div>
+							<br />
+							<small class="center" style="position: absolute; bottom: 0; left: 0; right: 0;"><i>{{ encounter.flavortext }}</i></small>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</section>
   </body>

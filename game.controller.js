@@ -14,6 +14,10 @@ angular.module('cardApp', [])
 			vm.selectedAdventurer.abilityCards = angular.copy(vm.originalSet);
 		}
 		
+		vm.chooseEncounters = function (val) {
+			vm.choosingEncounters = val;
+		}
+		
 		vm.drawCards = function() {
 			vm.selectedAdventurer.drawnAbilityCards = vm.selectedAdventurer.drawnAbilityCards || [];
 			var cardsToDraw = 3 - vm.selectedAdventurer.drawnAbilityCards.length;
@@ -64,8 +68,21 @@ angular.module('cardApp', [])
 			abilityCard.selected = !abilityCard.selected;
 		}
 		
+		vm.selectEncounter = function(encounterCard) {
+			vm.currentEncounters = vm.currentEncounters || [];
+			var encounter = angular.copy(encounterCard);
+			encounter.currentHealth = encounter.health;
+			vm.currentEncounters.push(encounter);
+		}
+		
 		vm.shuffle = function () {
 			vm.hideCards = true;
+		}
+		
+		vm.updateHealth = function(encounter, val) {
+			var newNum = Number(encounter.currentHealth) + Number(val);
+			var actual = Math.min(Math.max(newNum, 0), encounter.health);
+			encounter.currentHealth = actual;
 		}
 		
 		load();
