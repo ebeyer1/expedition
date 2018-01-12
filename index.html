@@ -17,6 +17,9 @@
   </head>
   <body>
     <section ng-controller="CardsController as cardCtrl">
+	<button class="btn waves-effect waves-light" name="action" ng-click="cardCtrl.startGame()">Start Game
+		<i class="fas fa-arrow-right"></i>
+	</button>
 		<h3>Adventurers</h2>
 		<div class="row">
 			<div class="col s6 m3" ng-repeat="adventurer in cardCtrl.adventurers">

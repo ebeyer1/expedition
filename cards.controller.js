@@ -2,6 +2,10 @@ angular.module('cardApp', [])
 	.controller('CardsController', function (cardApi) {
 		var vm = this;
 		
+		vm.startGame = function() {
+			window.location = 'game.html';
+		}
+		
 		load();
 		
 		function load() {

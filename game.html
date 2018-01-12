@@ -1,0 +1,79 @@
+<!doctype html>
+<html ng-app="cardApp">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+	<script src="game.controller.js"></script>
+	<script src="cardApi.service.js"></script>
+	<!-- Compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+	<!--Import jQuery before materialize.js-->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<!-- Compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+	
+	<!-- FA: https://fontawesome.com/icons?d=gallery&q=fire -->
+	<script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
+  </head>
+  <body>
+    <section ng-controller="GameController as gameCtrl">
+		<section ng-hide="gameCtrl.selectedAdventurer" ng-cloak>
+			<h3>Choose Your Adventurer</h2>
+			<div class="row">
+				<div class="col s4 m3" ng-repeat="adventurer in gameCtrl.adventurers">
+					<div class="card small">
+						<div class="card-content" style="position: relative; min-height: 75%;">
+							<span class="card-title">{{ adventurer.name }}</span>
+							<ul>
+								<li><label>Melee:</label> {{ adventurer.melee || '0' }}
+								<li><label>Music:</label> {{ adventurer.music || '0' }}
+								<li><label>Ranged:</label> {{ adventurer.ranged || '0' }}
+								<li><label>Magic:</label> {{ adventurer.magic || '0' }}
+							</ul>
+							<br />
+							<small class="center" style="position: absolute; bottom: 0; left: 0; right: 0;"><i>{{ adventurer.flavortext }}</i></small>
+						</div>
+						<div class="card-action">
+							<a href="#" ng-click="gameCtrl.selectAdventurer(adventurer)">Use Card</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<div ng-if="gameCtrl.selectedAdventurer">
+		<h4>Selected Adventurer: {{ gameCtrl.selectedAdventurer.name }}</h4>
+		<h5>Cards
+			<i><small>(
+				<span ng-if="gameCtrl.selectedAdventurer.melee">{{ gameCtrl.selectedAdventurer.melee }} melee;</span>
+				<span ng-if="gameCtrl.selectedAdventurer.music">{{ gameCtrl.selectedAdventurer.music }} music;</span>
+				<span ng-if="gameCtrl.selectedAdventurer.ranged">{{ gameCtrl.selectedAdventurer.ranged }} ranged;</span>
+				<span ng-if="gameCtrl.selectedAdventurer.magic">{{ gameCtrl.selectedAdventurer.magic }} magic;</span>
+			)</small></i>
+		</h5>
+		<div class="row">
+			<div class="col s6 m3" ng-repeat="ability in gameCtrl.selectedAdventurer.abilityCards">
+				<div class="card medium">
+					<div class="card-content center" style="position: relative; min-height: 85%;">
+						<span class="card-title">{{ ability.name }}</span>
+						<small style="position: absolute; top: 5px; right: 5px;">{{ ability.class }}</small>
+						<small style="position: absolute; top: 5px; left: 5px;">{{ ability.typeicon }}</small>
+						<div><strong><i class="far fa-gem"></i> >= {{ ability.risk }}</strong></div>
+						<div><strong><i class="fas fa-crosshairs"></i> {{ ability.target }}</strong></div>
+						<br />
+						<div><strong>SUCCESS:</strong> {{ ability.hit }}</div>
+						<br />
+						<div><strong><i class="far fa-gem"></i> >= 20:</strong> {{ ability.crithit }}</div>
+						<div><strong><i class="far fa-gem"></i> <= 1:</strong> {{ ability.critmiss }}</div>
+						<br />
+						<small class="center" style="position: absolute; bottom: 0; left: 0; right: 0;"><i>{{ ability.flavortext }}</i></small>
+					</div>
+					<div class="card-action">
+						<a href="#">Use Card</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</section>
+  </body>
+</html>
