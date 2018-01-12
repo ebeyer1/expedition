@@ -1,0 +1,40 @@
+<!doctype html>
+<html ng-app="cardApp">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+	<script src="cards.controller.js"></script>
+	<script src="cardApi.service.js"></script>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.0.4/css/bootstrap-combined.min.css">
+  </head>
+  <body>
+    <section ng-controller="CardsController as cardCtrl">
+		<h2>Adventurers</h2>
+		<ul>
+			<li ng-repeat="adventurer in cardCtrl.adventurers">
+				<pre>{{ adventurer | json }}</pre>
+			</li>
+		</ul>
+		
+		<h2>Abilities</h2>
+		<ul>
+			<li ng-repeat="ability in cardCtrl.abilities">
+				<pre>{{ ability | json }}</pre>
+			</li>
+		</ul>
+		
+		<h2>Encounters</h2>
+		<ul>
+			<li ng-repeat="encounter in cardCtrl.encounters">
+				<pre>{{ encounter | json }}</pre>
+			</li>
+		</ul>
+		
+		<h2>Loot</h2>
+		<ul>
+			<li ng-repeat="item in cardCtrl.loot">
+				<pre>{{ item | json }}</pre>
+			</li>
+		</ul>
+	</section>
+  </body>
+</html>
