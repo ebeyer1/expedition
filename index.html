@@ -4,37 +4,106 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
 	<script src="cards.controller.js"></script>
 	<script src="cardApi.service.js"></script>
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.0.4/css/bootstrap-combined.min.css">
+	<!-- Compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+	<!--Import jQuery before materialize.js-->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<!-- Compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+	
+	<!-- FA: https://fontawesome.com/icons?d=gallery&q=fire -->
+	<script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
   </head>
   <body>
     <section ng-controller="CardsController as cardCtrl">
-		<h2>Adventurers</h2>
-		<ul>
-			<li ng-repeat="adventurer in cardCtrl.adventurers">
-				<pre>{{ adventurer | json }}</pre>
-			</li>
-		</ul>
+		<h3>Adventurers</h2>
+		<div class="row">
+			<div class="col s6 m3" ng-repeat="adventurer in cardCtrl.adventurers">
+				<div class="card medium">
+					<div class="card-content" style="position: relative; min-height: 85%;">
+						<span class="card-title">{{ adventurer.name }}</span>
+						<ul>
+							<li><label>Melee:</label> {{ adventurer.melee || '0' }}
+							<li><label>Music:</label> {{ adventurer.music || '0' }}
+							<li><label>Ranged:</label> {{ adventurer.ranged || '0' }}
+							<li><label>Magic:</label> {{ adventurer.magic || '0' }}
+						</ul>
+						<br />
+						<small class="center" style="position: absolute; bottom: 0; left: 0; right: 0;"><i>{{ adventurer.flavortext }}</i></small>
+					</div>
+					<div class="card-action">
+						<a href="#">Use Card</a>
+					</div>
+				</div>
+			</div>
+		</div>
 		
-		<h2>Abilities</h2>
-		<ul>
-			<li ng-repeat="ability in cardCtrl.abilities">
-				<pre>{{ ability | json }}</pre>
-			</li>
-		</ul>
+		<h3>Abilities</h2>
+		<div class="row">
+			<div class="col s6 m3" ng-repeat="ability in cardCtrl.abilities">
+				<div class="card medium">
+					<div class="card-content center" style="position: relative; min-height: 85%;">
+						<span class="card-title">{{ ability.name }}</span>
+						<small style="position: absolute; top: 5px; right: 5px;">{{ ability.class }}</small>
+						<small style="position: absolute; top: 5px; left: 5px;">{{ ability.typeicon }}</small>
+						<div><strong><i class="far fa-gem"></i> >= {{ ability.risk }}</strong></div>
+						<div><strong><i class="fas fa-crosshairs"></i> {{ ability.target }}</strong></div>
+						<br />
+						<div><strong>SUCCESS:</strong> {{ ability.hit }}</div>
+						<br />
+						<div><strong><i class="far fa-gem"></i> >= 20:</strong> {{ ability.crithit }}</div>
+						<div><strong><i class="far fa-gem"></i> <= 1:</strong> {{ ability.critmiss }}</div>
+						<br />
+						<small class="center" style="position: absolute; bottom: 0; left: 0; right: 0;"><i>{{ ability.flavortext }}</i></small>
+					</div>
+					<div class="card-action">
+						<a href="#">Use Card</a>
+					</div>
+				</div>
+			</div>
+		</div>
 		
-		<h2>Encounters</h2>
-		<ul>
-			<li ng-repeat="encounter in cardCtrl.encounters">
-				<pre>{{ encounter | json }}</pre>
-			</li>
-		</ul>
+		<h3>Encounters</h2>
+		<div class="row">
+			<div class="col s6 m3" ng-repeat="encounter in cardCtrl.encounters">
+				<div class="card medium blue-grey darken-4">
+					<div class="card-content white-text center" style="position: relative; min-height: 85%;">
+						<small style="position: absolute; top: 5px; right: 5px;"><i class="far fa-heart"></i> {{ encounter.health }}</small>
+						<span class="card-title">{{ encounter.name }}</span>
+						<div>Tier {{ encounter.tier }} <strong>{{ encounter.class }}</strong></div>
+						<div>{{ encounter.ongoing1 }}</div>
+						<div>{{ encounter.ongoing2 }}</div>
+						<div><strong>SURGE:</strong> {{ encounter.surge }}</div>
+						<br />
+						<small class="center" style="position: absolute; bottom: 0; left: 0; right: 0;"><i>{{ encounter.flavortext }}</i></small>
+					</div>
+					<div class="card-action">
+						<a href="#">Use Card</a>
+					</div>
+				</div>
+			</div>
 		
-		<h2>Loot</h2>
-		<ul>
-			<li ng-repeat="item in cardCtrl.loot">
-				<pre>{{ item | json }}</pre>
-			</li>
-		</ul>
+		<h3>Loot</h2>
+		<div class="row">
+			<div class="col s6 m3" ng-repeat="item in cardCtrl.loot">
+				<div class="card medium">
+					<div class="card-content center" style="position: relative; min-height: 85%;">
+						<span class="card-title">{{ item.name }}</span>
+						<div><strong>Tier {{ item.tier }} loot</strong></div>
+						<div><strong>{{ item.numberuses }}</strong></div>
+						<div><strong>{{ item.usewhen }}</strong></div>
+						<br />
+						<div>{{ item.text }}</div>
+						<br />
+						<small class="center" style="position: absolute; bottom: 0; left: 0; right: 0;"><i>{{ item.flavortext }}</i></small>
+					</div>
+					<div class="card-action">
+						<a href="#">Use Card</a>
+					</div>
+				</div>
+			</div>
+		</div>
 	</section>
   </body>
 </html>

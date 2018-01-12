@@ -26,6 +26,8 @@ angular.module('cardApp', [])
 				}).filter(function(item) {
 					return typeof item.comment === "undefined" || item.comment === '';
 				});
+				
+				// TODO - eventually parse data into a dictionary... abilities['Magic'] = []; abilities['Music'] = []; etc...
 			});
 			
 			cardApi.getEncounters().then(function(response) {

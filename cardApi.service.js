@@ -1,3 +1,4 @@
+// Full Card list: http://cards.expeditiongame.com/?
 angular.module('cardApp')
 	.service('cardApi', function($http, $q) {
 		return {
