@@ -4,14 +4,55 @@ angular.module('cardApp', [])
 		
 		vm.selectedAdventurer = null;
 		
+		vm.addHealth = function(num) {
+			vm.selectedAdventurer.health += num;
+		}
+		
+		vm.clearCards = function () {
+			vm.selectedAdventurer.drawnAbilityCards = [];
+			vm.selectedAdventurer.discardedAbilityCards = [];
+			vm.selectedAdventurer.abilityCards = angular.copy(vm.originalSet);
+		}
+		
+		vm.drawCards = function() {
+			vm.selectedAdventurer.drawnAbilityCards = vm.selectedAdventurer.drawnAbilityCards || [];
+			var cardsToDraw = 3 - vm.selectedAdventurer.drawnAbilityCards.length;
+			for (var i = 0; i < cardsToDraw; i++) {
+				var max = vm.selectedAdventurer.abilityCards.length;
+				if (max === 0) { // shuffle discard cards back in
+					vm.selectedAdventurer.abilityCards = angular.copy(vm.selectedAdventurer.discardedAbilityCards);
+					vm.selectedAdventurer.discardedAbilityCards = [];
+					max = vm.selectedAdventurer.abilityCards.length;
+				}
+				var rndNum = getRandomArbitrary(0, max);
+				var item = vm.selectedAdventurer.abilityCards.splice(rndNum, 1)[0];
+				vm.selectedAdventurer.drawnAbilityCards.push(item);
+			}
+		}
+		
+		vm.playCard = function(abilityCard) {
+			vm.selectedAdventurer.discardedAbilityCards = vm.selectedAdventurer.discardedAbilityCards || [];
+			vm.selectedAdventurer.discardedAbilityCards.push(abilityCard);
+			vm.selectedAdventurer.drawnAbilityCards = vm.selectedAdventurer.drawnAbilityCards.filter(function (item) {
+				return item.name !== abilityCard.name;
+			});
+			vm.drawCards();
+		}
+		
 		vm.selectAdventurer = function(adventurer) {
 			vm.selectedAdventurer = angular.copy(adventurer);
-			
+			vm.selectedAdventurer.health = 12;
 			
 			pullCards('melee', vm.selectedAdventurer.melee);
 			pullCards('music', vm.selectedAdventurer.music);
 			pullCards('ranged', vm.selectedAdventurer.ranged);
 			pullCards('magic', vm.selectedAdventurer.magic);
+			
+			vm.originalSet = angular.copy(vm.selectedAdventurer.abilityCards);
+		}
+		
+		vm.shuffle = function () {
+			vm.hideCards = true;
 		}
 		
 		load();
