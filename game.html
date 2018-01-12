@@ -28,6 +28,7 @@
     <section ng-controller="GameController as gameCtrl">
 		<section ng-hide="gameCtrl.selectedAdventurer" ng-cloak>
 			<h3>Choose Your Adventurer</h2>
+			<p><i class="fas fa-info-circle"></i> Choose an adventurer to begin your journey.</p>
 			<div class="row">
 				<div class="col s4 m3" ng-repeat="adventurer in gameCtrl.adventurers">
 					<div class="card small">
@@ -81,6 +82,7 @@
 					<hr />
 				</div>
 				<div class="row" ng-if="gameCtrl.draftOptions.length > 0">
+					<p><i class="fas fa-info-circle"></i> Select one of the cards below to add to your ability deck. Congrats on leveling up!</p>
 					<div class="col s6 m3" ng-repeat="ability in gameCtrl.draftOptions">
 					<div class="card medium">
 						<div class="card-content center" style="position: relative; min-height: 85%;">
@@ -133,6 +135,7 @@
 				</div>
 			</div>
 			<div class="row" ng-if="gameCtrl.hideCards">
+				<p><i class="fas fa-info-circle"></i> When ready for combat, click 'Draw' to fetch your 3 cards. Select a card to use, then discard it after the turn. The remaining cards will get shuffled back into your deck.</p>
 				<button class="btn waves-effect waves-light" name="action" ng-click="gameCtrl.drawCards()">Draw <i class="fas fa-angle-up"></i>
 				</button>
 				<small><em>({{ gameCtrl.selectedAdventurer.abilityCards.length + gameCtrl.selectedAdventurer.drawnAbilityCards.length + gameCtrl.selectedAdventurer.discardedAbilityCards.length }} cards)</em></small>
@@ -161,11 +164,13 @@
 				</div>
 				<br />
 				<div class="clearfix">
+					<p><i class="fas fa-info-circle"></i> Discard all cards to reset your deck.</p>
 					<button class="btn waves-effect waves-light" name="action" ng-click="gameCtrl.clearCards()" ng-if="gameCtrl.selectedAdventurer.drawnAbilityCards.length > 0">Discard All
 						<i class="fas fa-angle-down"></i>
 					</button>
 				</div>
 			</div>
+			<p><i class="fas fa-info-circle"></i> Select choose encounters when the app tells you to draw encounter cards. You can search for the cards required.</p>
 			<button class="btn waves-effect waves-light" name="action" ng-click="gameCtrl.chooseEncounters(true)">Choose Encounters
 				<i class="fas fa-arrow-right"></i>
 			</button>
@@ -173,6 +178,7 @@
 		<div ng-if="gameCtrl.choosingEncounters">
 			<div class="clearfix">
 				<input class="col s12 m6" type="text" ng-model="gameCtrl.encounterFilter" placeholder="Search for encounter" />
+				<p><i class="fas fa-info-circle"></i> Click "Done Selecting" when all encounter cards have been selected.</p>
 				<button class="btn waves-effect waves-light" name="action" ng-click="gameCtrl.chooseEncounters(false)">Done Selecting
 					<i class="fas fa-arrow-down"></i>
 				</button>
@@ -225,9 +231,11 @@
 				</div>
 			</div>
 			<div>
+				<p><i class="fas fa-info-circle"></i> Click "Get Loot" when the app tells you to do so. You'll get a random loot card. Loot cards will display below.</p>
 				<button class="btn waves-effect waves-light" name="action" ng-click="gameCtrl.getLoot()">Get Loot</button>
 			</div>
 			<div>
+				<p><i class="fas fa-info-circle"></i> Click "Finish Encounter" when all post-encounter steps are done.</p>
 				<button class="btn waves-effect waves-light" name="action" ng-click="gameCtrl.finishEncounter()">Finish Encounter
 					<i class="fas fa-check-square"></i>
 				</button>
@@ -235,6 +243,7 @@
 		</div>
 		<div ng-if="gameCtrl.selectedAdventurer.lootCards.length > 0">
 			<h4>Owned Loot Cards</h4>
+			<p><i class="fas fa-info-circle"></i> Discard a card after it has been used.</p>
 			<div class="row">
 				<div class="col s6 m3" ng-repeat="item in gameCtrl.selectedAdventurer.lootCards">
 					<div class="card medium">
