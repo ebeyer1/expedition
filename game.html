@@ -14,6 +14,15 @@
 	
 	<!-- FA: https://fontawesome.com/icons?d=gallery&q=fire -->
 	<script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
+	
+	<style>
+		.card {
+			border: 1px solid transparent;
+		}
+		.card.selected {
+			border: 1px solid red;
+		}
+	</style>
   </head>
   <body style="padding: 5px;">
     <section ng-controller="GameController as gameCtrl">
@@ -91,7 +100,7 @@
 			</button>
 			<br />
 			<div class="col s6 m3" ng-repeat="ability in gameCtrl.selectedAdventurer.drawnAbilityCards">
-				<div class="card medium">
+				<div class="card medium" ng-class="{'selected': ability.selected}">
 					<div class="card-content center" style="position: relative; min-height: 85%;">
 						<span class="card-title">{{ ability.name }}</span>
 						<small style="position: absolute; top: 5px; right: 5px;">{{ ability.class }}</small>
@@ -107,7 +116,8 @@
 						<small class="center" style="position: absolute; bottom: 0; left: 0; right: 0;"><i>{{ ability.flavortext }}</i></small>
 					</div>
 					<div class="card-action">
-						<a href="#" ng-click="gameCtrl.playCard(ability)">Use Card</a>
+						<a href="#" ng-click="gameCtrl.selectCard(ability)" ng-hide="ability.selected">Use Card</a>
+						<a href="#" ng-click="gameCtrl.playCard(ability)" ng-if="ability.selected">Discard Card</a>
 					</div>
 				</div>
 			</div>

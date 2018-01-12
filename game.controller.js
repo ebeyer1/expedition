@@ -31,6 +31,7 @@ angular.module('cardApp', [])
 		}
 		
 		vm.playCard = function(abilityCard) {
+			abilityCard.selected = false;
 			vm.selectedAdventurer.discardedAbilityCards = vm.selectedAdventurer.discardedAbilityCards || [];
 			vm.selectedAdventurer.discardedAbilityCards.push(abilityCard);
 			vm.selectedAdventurer.drawnAbilityCards = vm.selectedAdventurer.drawnAbilityCards.filter(function (item) {
@@ -49,6 +50,11 @@ angular.module('cardApp', [])
 			pullCards('magic', vm.selectedAdventurer.magic);
 			
 			vm.originalSet = angular.copy(vm.selectedAdventurer.abilityCards);
+		}
+		
+		vm.selectCard = function(abilityCard) {
+			abilityCard.selected = abilityCard.selected || false;
+			abilityCard.selected = !abilityCard.selected;
 		}
 		
 		vm.shuffle = function () {
