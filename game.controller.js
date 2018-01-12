@@ -15,7 +15,18 @@ angular.module('cardApp', [])
 		}
 		
 		vm.chooseEncounters = function (val) {
+			if (val) {
+				vm.currentEncounters = [];
+			}
 			vm.choosingEncounters = val;
+		}
+		
+		vm.discardLoot = function(lootCard) {
+			vm.discardedLoot = vm.discardedLoot || [];
+			vm.discardedLoot.push(lootCard);
+			vm.selectedAdventurer.lootCards = vm.selectedAdventurer.lootCards.filter(function(item) {
+				return item.name !== lootCard.name;
+			});
 		}
 		
 		vm.drawCards = function() {
@@ -32,6 +43,18 @@ angular.module('cardApp', [])
 				var item = vm.selectedAdventurer.abilityCards.splice(rndNum, 1)[0];
 				vm.selectedAdventurer.drawnAbilityCards.push(item);
 			}
+		}
+		
+		vm.getLoot = function () {
+			var max = vm.loot.length;
+			var rndNum = getRandomArbitrary(0, max);
+			var item = vm.loot.splice(rndNum, 1)[0];
+			vm.selectedAdventurer.lootCards = vm.selectedAdventurer.lootCards || [];
+			vm.selectedAdventurer.lootCards.push(item);
+		}
+		
+		vm.finishEncounter = function() {
+			vm.currentEncounters = [];
 		}
 		
 		vm.playCard = function(abilityCard) {
