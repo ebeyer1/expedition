@@ -2,6 +2,7 @@ angular.module('cardApp', [])
 	.controller('GameController', function (cardApi) {
 		var vm = this;
 		
+		vm.draftOptions = [];
 		vm.selectedAdventurer = null;
 		
 		vm.addHealth = function(num) {
@@ -21,12 +22,45 @@ angular.module('cardApp', [])
 			vm.choosingEncounters = val;
 		}
 		
+		vm.chooseDraftChoice = function(abilityCard) {
+			vm.draftOptions = [];
+			
+			var abilities = vm.abilities.filter(function(item) {
+				return item.class.toLowerCase() === abilityCard.class.toLowerCase();
+			});
+			
+			var idx = abilities.indexOf(abilityCard);
+			console.log('indx', idx);
+			if (idx >= 0) {
+				abilities.splice(idx, 1);
+			}
+			vm.selectedAdventurer.abilityCards.push(abilityCard);
+			vm.originalSet.push(abilityCard);
+			
+			vm.levelingUp = false;
+		}
+		
 		vm.discardLoot = function(lootCard) {
 			vm.discardedLoot = vm.discardedLoot || [];
 			vm.discardedLoot.push(lootCard);
 			vm.selectedAdventurer.lootCards = vm.selectedAdventurer.lootCards.filter(function(item) {
 				return item.name !== lootCard.name;
 			});
+		}
+		
+		vm.draft = function(type) {
+			vm.draftOptions = [];
+		
+			var abilities = vm.abilities.filter(function(item) {
+				return item.class.toLowerCase() === type;
+			});
+			
+			var listCopy = angular.copy(abilities);
+			for (var i = 0; i < 3; i++) {
+				var rndNum = getRandomArbitrary(0, listCopy.length);
+				var item = listCopy.splice(rndNum, 1)[0];
+				vm.draftOptions.push(item);
+			}
 		}
 		
 		vm.drawCards = function() {
@@ -55,6 +89,10 @@ angular.module('cardApp', [])
 		
 		vm.finishEncounter = function() {
 			vm.currentEncounters = [];
+		}
+		
+		vm.levelUp = function() {
+			vm.levelingUp = true;
 		}
 		
 		vm.playCard = function(abilityCard) {
