@@ -209,7 +209,7 @@
 		<div ng-if="!gameCtrl.choosingEncounters && gameCtrl.currentEncounters.length > 0">
 			<h4>Current Encounters</h4>
 			<div class="row">
-				<div class="col s6 m3" ng-repeat="encounter in gameCtrl.currentEncounters | filter: gameCtrl.encounterFilter">
+				<div class="col s6 m3" ng-repeat="encounter in gameCtrl.currentEncounters">
 					<div class="card medium blue-grey darken-4">
 						<div class="card-content white-text center" style="position: relative; min-height: 85%;">
 							<div style="position: absolute; top: 10px; right: 5px;">
@@ -231,15 +231,18 @@
 				</div>
 			</div>
 			<div>
-				<p><i class="fas fa-info-circle"></i> Click "Get Loot" when the app tells you to do so. You'll get a random loot card. Loot cards will display below.</p>
-				<button class="btn waves-effect waves-light" name="action" ng-click="gameCtrl.getLoot()">Get Loot</button>
-			</div>
-			<div>
 				<p><i class="fas fa-info-circle"></i> Click "Finish Encounter" when all post-encounter steps are done.</p>
 				<button class="btn waves-effect waves-light" name="action" ng-click="gameCtrl.finishEncounter()">Finish Encounter
 					<i class="fas fa-check-square"></i>
 				</button>
 			</div>
+		</div>
+		<div ng-if="gameCtrl.selectedAdventurer">
+			<p><i class="fas fa-info-circle"></i> Click "Get Loot" when the app tells you to do so. You'll get a random loot card. Loot cards will display below.</p>
+			<button class="btn waves-effect waves-light" name="action" ng-click="gameCtrl.getLoot(1)">Get Loot (Tier 1)</button>
+			<button class="btn waves-effect waves-light" name="action" ng-click="gameCtrl.getLoot(2)">Get Loot (Tier 2)</button>
+			<button class="btn waves-effect waves-light" name="action" ng-click="gameCtrl.getLoot(3)">Get Loot (Tier 3)</button>
+			<!-- <button class="btn waves-effect waves-light" name="action" ng-click="gameCtrl.getLoot(4)">Get Loot (Tier 4)</button> -->
 		</div>
 		<div ng-if="gameCtrl.selectedAdventurer.lootCards.length > 0">
 			<h4>Owned Loot Cards</h4>

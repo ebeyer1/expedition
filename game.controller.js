@@ -79,10 +79,11 @@ angular.module('cardApp', [])
 			}
 		}
 		
-		vm.getLoot = function () {
-			var max = vm.loot.length;
+		vm.getLoot = function (tier) {
+			var tierKey = String(tier);
+			var max = vm.lootTier[tierKey].length; //
 			var rndNum = getRandomArbitrary(0, max);
-			var item = vm.loot.splice(rndNum, 1)[0];
+			var item = vm.lootTier[tierKey].splice(rndNum, 1)[0];
 			vm.selectedAdventurer.lootCards = vm.selectedAdventurer.lootCards || [];
 			vm.selectedAdventurer.lootCards.push(item);
 		}
@@ -164,6 +165,11 @@ angular.module('cardApp', [])
 			
 			cardApi.getLoot().then(function(response) {
 				vm.loot = response;
+				vm.lootTier = {};
+				response.forEach(function(item) {
+					vm.lootTier[item.tier] = vm.lootTier[item.tier] || [];
+					vm.lootTier[item.tier].push(item);
+				});
 			});
 		}
 		
