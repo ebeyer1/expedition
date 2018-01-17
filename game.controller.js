@@ -66,6 +66,15 @@ angular.module('cardApp', [])
 		vm.drawCards = function() {
 			vm.selectedAdventurer.drawnAbilityCards = vm.selectedAdventurer.drawnAbilityCards || [];
 			var cardsToDraw = 3 - vm.selectedAdventurer.drawnAbilityCards.length;
+			draw(cardsToDraw);
+		}
+		
+		vm.drawAdditional = function() {
+			if (vm.selectedAdventurer.drawnAbilityCards.length === vm.originalSet.length) return;
+			draw(1);
+		}
+		
+		function draw(cardsToDraw) {
 			for (var i = 0; i < cardsToDraw; i++) {
 				var max = vm.selectedAdventurer.abilityCards.length;
 				if (max === 0) { // shuffle discard cards back in

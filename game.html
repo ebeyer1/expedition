@@ -139,6 +139,7 @@
 				<button class="btn waves-effect waves-light" name="action" ng-click="gameCtrl.drawCards()">Draw <i class="fas fa-angle-up"></i>
 				</button>
 				<small><em>({{ gameCtrl.selectedAdventurer.abilityCards.length + gameCtrl.selectedAdventurer.drawnAbilityCards.length + gameCtrl.selectedAdventurer.discardedAbilityCards.length }} cards)</em></small>
+				<button class="btn waves-effect waves-light" name="action" ng-click="gameCtrl.drawAdditional()"><small>Draw Additional Card</small></button>
 				<br />
 				<div class="col s6 m3" ng-repeat="ability in gameCtrl.selectedAdventurer.drawnAbilityCards">
 					<div class="card medium" ng-class="{'selected': ability.selected}">
