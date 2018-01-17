@@ -105,14 +105,22 @@ angular.module('cardApp', [])
 			vm.levelingUp = true;
 		}
 		
-		vm.playCard = function(abilityCard) {
-			abilityCard.selected = false;
-			vm.selectedAdventurer.discardedAbilityCards = vm.selectedAdventurer.discardedAbilityCards || [];
-			vm.selectedAdventurer.discardedAbilityCards.push(abilityCard);
-			vm.selectedAdventurer.drawnAbilityCards = vm.selectedAdventurer.drawnAbilityCards.filter(function (item) {
-				return item.name !== abilityCard.name;
+		vm.playCards = function() {
+			var selectedCards = vm.selectedAdventurer.drawnAbilityCards.filter(function(item) {
+				return item.selected === true;
 			});
-			// return other 2 cards to the draw pile.
+			
+			vm.selectedAdventurer.discardedAbilityCards = vm.selectedAdventurer.discardedAbilityCards || [];
+			selectedCards.forEach(function(abilityCard) {
+				abilityCard.selected = false;
+				vm.selectedAdventurer.discardedAbilityCards.push(abilityCard);
+				// todo - maybe just do this after, set it to drawn ability cards where selected === false
+				vm.selectedAdventurer.drawnAbilityCards = vm.selectedAdventurer.drawnAbilityCards.filter(function (item) {
+					return item.name !== abilityCard.name;
+				});
+			});
+			
+			// return remaining cards to the draw pile.
 			for (var i = 0; i < vm.selectedAdventurer.drawnAbilityCards.length; i++) {
 				vm.selectedAdventurer.abilityCards.push(vm.selectedAdventurer.drawnAbilityCards[i]);
 			}
